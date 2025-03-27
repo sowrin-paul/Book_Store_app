@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import BookCard from './bookcard';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import BookRow from "./bookrow.jsx";
 
-const BookTable = ({ settings }) => {
-  const [books, setBooks] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
+const BookTable = ({ books, loadMoreBooks }) => {
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const fetchBooks = async () => {
-    const { seed, likes, reviews, region } = settings;
-    try {
-      const response = await axios.get('http://localhost:5000/books', {
-        params: {
-          seed,
-          page,
-        },
-      });
-      const newBooks = response.data;
-      setBooks((prevBooks) => [...prevBooks, ...newBooks]);
-      if (newBooks.length < 10) setHasMore(false);
-    } catch (error) {
-      console.error("Error fetching books", error);
-    }
+  const toggleExpand = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   useEffect(() => {
-    setBooks([]);
-    setPage(1);
-    setHasMore(true);
-  }, [settings]);
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 100
+      ) {
+        loadMoreBooks();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadMoreBooks]);
 
   return (
-    <InfiniteScroll
-      dataLength={books.length}
-      next={() => setPage(page + 1)}
-      hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
-      endMessage={<p>No more books to show</p>}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
-      </div>
-    </InfiniteScroll>
+    <div className="overflow-x-auto w-full p-4">
+      <table className="min-w-full border border-gray-300 rounded-lg">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="p-2 border">#</th>
+            <th className="p-2 border">ISBN</th>
+            <th className="p-2 border">Title</th>
+            <th className="p-2 border">Author(s)</th>
+            <th className="p-2 border">Publisher</th>
+          </tr>
+        </thead>
+        <tbody>
+          {books.map((book, index) => (
+            <BookRow
+              key={book.isbn}
+              book={book}
+              index={index + 1}
+              expanded={expandedIndex === index}
+              onExpand={() => toggleExpand(index)}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

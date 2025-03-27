@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book = {} }) => {
   const [expanded, setExpanded] = useState(false);
+
+  const {
+    title = 'Unknown Title',
+    author = 'Unknown Author',
+    publisher = 'Unknown Publisher',
+    isbn = 'No ISBN',
+  } = book;
 
   return (
     <div className="border p-4 rounded-md shadow-md hover:shadow-lg transition-all">
-      <div className="font-bold text-xl">{book.title}</div>
-      <div className="text-gray-600">{book.author}</div>
-      <div className="text-sm text-gray-500">{book.publisher}</div>
-      <div className="text-xs text-gray-400">{book.isbn}</div>
+      <div className="font-bold text-xl">{title}</div>
+      <div className="text-gray-600">{author}</div>
+      <div className="text-sm text-gray-500">{publisher}</div>
+      <div className="text-xs text-gray-400">{isbn}</div>
 
       <button
         onClick={() => setExpanded(!expanded)}
