@@ -45,7 +45,7 @@ const Filters = ({ filters, setFilters, regenerateBooks }) => {
         onClick={() => setFilters((prev) => ({ ...prev, seed: Math.floor(Math.random() * 1000000) }))}
         className="p-2 bg-gray-200 rounded-md hover:bg-gray-300"
       >
-        🔄 Randomize
+        Randomize
       </button>
 
       {/* Likes Slider */}

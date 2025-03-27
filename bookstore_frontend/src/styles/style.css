@@ -1,0 +1,74 @@
+/* General Styles for the Table */
+.table-container {
+    @apply overflow-auto h-[500px] border rounded-lg shadow-lg;
+  }
+  
+  .table {
+    @apply min-w-full border-collapse table-auto;
+  }
+  
+  .table-header {
+    @apply bg-blue-100 text-left;
+  }
+  
+  .table-header th {
+    @apply p-3 border text-gray-600;
+  }
+  
+  .table-row {
+    @apply hover:bg-gray-50 cursor-pointer;
+  }
+  
+  .table-cell {
+    @apply p-3 border text-gray-700;
+  }
+  
+  .expand-btn {
+    @apply text-blue-600 hover:text-blue-800 font-bold;
+  }
+  
+  .loading {
+    @apply text-center p-2 text-gray-500;
+  }
+  
+  /* Expandable Row Styles */
+  .book-detail {
+    @apply p-4 bg-gray-50 border-b;
+  }
+  
+  .book-detail-content {
+    @apply flex gap-6;
+  }
+  
+  .book-cover {
+    @apply w-36 h-48 object-cover rounded-lg shadow-lg;
+  }
+  
+  .book-info {
+    @apply flex-1;
+  }
+  
+  .book-title {
+    @apply text-2xl font-semibold text-gray-800;
+  }
+  
+  .book-author {
+    @apply text-lg italic text-gray-600;
+  }
+  
+  .book-publisher {
+    @apply text-sm text-gray-500;
+  }
+  
+  .reviews-section {
+    @apply mt-4;
+  }
+  
+  .reviewer {
+    @apply text-xs text-gray-500;
+  }
+  
+  .likes {
+    @apply mt-4 text-blue-600 font-semibold text-lg;
+  }
+  

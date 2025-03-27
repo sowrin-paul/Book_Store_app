@@ -7,4 +7,4 @@ export const variants = {
   extend: {},
 };
 export const plugins = [];
-export const content = ["./src/**/*.{js,jsx}"];
+export const content = ["./src/**/*.{html,js,jsx,ts,tsx}"];
